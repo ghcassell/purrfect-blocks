@@ -13,8 +13,10 @@ const ANIMALS = [
   { n: 'Lion', c: '#ff9142', e: 'mane' },
   { n: 'Lion King', c: '#ff4d6d', e: 'mane', crown: 1 },
 ];
+const VIVID = ['#8a5cff', '#ff2d9b', '#ff9500', '#00b7ff', '#ff3b1f', '#00e07a', '#c2571a', '#ffe000', '#ff6a00', '#ff0044']; // saturated block colours
+const BASE = ANIMALS.map(a => a.c);
 const UNLOCK = [0, 300, 800, 1500, 3000, 5000, 8000, 12000, 18000, 25000]; // cumulative points per animal
-const THEMES = [{ id: 'candy', n: 'Candy', at: 0 }, { id: 'mint', n: 'Mint', at: 2000 }, { id: 'night', n: 'Night', at: 8000 }];
+const THEMES = [{ id: 'candy', n: 'Candy', at: 0 }, { id: 'mint', n: 'Mint', at: 0 }, { id: 'night', n: 'Night', at: 0 }, { id: 'neon', n: 'Neon', at: 0 }, { id: 'sunset', n: 'Sunset', at: 0 }, { id: 'jungle', n: 'Jungle', at: 0 }];
 
 // ---- sprites: one <symbol> per animal, drawn with shapes ----
 const D = '#3b2a4a', P = '#ffb3c7';
@@ -24,7 +26,7 @@ const sym = (a, i) => {
     point: `<path d="M16 44L20 6L50 26zM84 44L80 6L50 26z" fill="#fff"/><path d="M24 36L25 16L40 27zM76 36L75 16L60 27z" fill="${P}"/>`,
     round: `<circle cx="24" cy="26" r="15" fill="${f}"/><circle cx="76" cy="26" r="15" fill="${f}"/>`,
     long: `<ellipse cx="34" cy="20" rx="10" ry="24" fill="#fff"/><ellipse cx="66" cy="20" rx="10" ry="24" fill="#fff"/><ellipse cx="34" cy="22" rx="5" ry="16" fill="${P}"/><ellipse cx="66" cy="22" rx="5" ry="16" fill="${P}"/>`,
-    mane: `<circle cx="50" cy="55" r="46" fill="#ffb347"/><circle cx="28" cy="22" r="10" fill="#fff"/><circle cx="72" cy="22" r="10" fill="#fff"/>`,
+    mane: `<circle cx="50" cy="55" r="46" fill="#ffb347"/><circle cx="32" cy="30" r="10" fill="#fff"/><circle cx="68" cy="30" r="10" fill="#fff"/>`,
   }[a.e];
   const eye = a.panda ? 3.5 : 4.5, ec = a.panda ? '#fff' : D;
   return `<symbol id="a${i}" viewBox="0 0 100 100">${ears}<circle cx="50" cy="${mane ? 56 : 58}" r="${mane ? 30 : 34}" fill="#fff"/>`
@@ -100,7 +102,12 @@ const toast = t => { const e = $('#toast'); e.textContent = t; retrigger(e, 'sho
 const cheer = t => $$('.bubble').forEach(b => { b.textContent = t; retrigger(b, 'say'); }) || $$('.mascot').forEach(m => retrigger(m, 'jump'));
 function paintMascot() { $$('.mascot').forEach(m => { m.innerHTML = use(store.mascot); m.style.setProperty('--c', ANIMALS[store.mascot].c); }); }
 function paintSound() { $$('.snd').forEach(b => b.textContent = store.mute ? '🔇' : '🔊'); }
-function applyTheme() { document.body.dataset.theme = store.theme; }
+function applyTheme() {
+  document.body.dataset.theme = store.theme;
+  const vivid = ['neon', 'sunset', 'jungle'].includes(store.theme);
+  ANIMALS.forEach((a, i) => a.c = vivid ? VIVID[i] : BASE[i]);
+  paintMascot();
+}
 
 function show(id) {
   $$('.screen').forEach(s => s.hidden = s.id !== id);
