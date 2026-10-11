@@ -1,7 +1,7 @@
 // Block puzzle: drag shapes onto an 8x8 grid, clear full rows/columns, ends when nothing fits.
 const Block = (() => {
-  const N = 8, LIFT = 70, boardEl = $('#b-board'), trayEl = $('#b-tray'), overEl = $('#b-over'), undoEl = $('#b-undo');
-  let board, tray, score, combo, seed, n, mode, snapStr, undoUsed, over, busy, best0;
+  const N = 8, LIFT = 70, boardEl = $('#b-board'), trayEl = $('#b-tray'), overEl = $('#b-over'), undoEl = $('#b-undo'), shufEl = $('#b-shuf');
+  let board, tray, score, combo, seed, n, mode, snapStr, undoLeft, shufLeft, over, busy, best0;
   const col = i => ANIMALS[i].c;
   const draw = () => pick(seed, n++);
   const pieceHTML = p => `<div class="piece" style="--w:${p.w};--h:${p.h}">${p.cells.map(([r, c]) =>
@@ -13,13 +13,15 @@ const Block = (() => {
     trayEl.innerHTML = tray.map((p, i) => `<div class="slot" data-i="${i}">${p ? pieceHTML(p) : ''}</div>`).join('');
     $('#b-score').textContent = score;
     $('#b-best').textContent = store.best.block;
-    undoEl.disabled = !snapStr || undoUsed || busy;
+    undoEl.textContent = `↩️ ${undoLeft}`; shufEl.textContent = `🔀 ${shufLeft}`;
+    undoEl.disabled = !snapStr || !undoLeft || busy;
+    shufEl.disabled = !shufLeft || busy || over;
   }
 
   function start(m) {
     mode = m;
     seed = m === 'daily' ? hashStr(dayKey()) : (Math.random() * 2 ** 32) >>> 0;
-    n = 0; board = Array(64).fill(-1); score = 0; combo = 0; snapStr = null; undoUsed = false; over = busy = false;
+    n = 0; board = Array(64).fill(-1); score = 0; combo = 0; snapStr = null; undoLeft = shufLeft = 3; over = busy = false;
     best0 = store.best.block;
     tray = [draw(), draw(), draw()];
     if (m === 'daily') { store.daily = { date: dayKey(), score: 0 }; save(); }
@@ -67,11 +69,18 @@ const Block = (() => {
   }
 
   undoEl.onclick = () => {
-    if (!snapStr || undoUsed || busy) return;
+    if (!snapStr || !undoLeft || busy) return;
     ({ board, tray, score, combo, n } = JSON.parse(snapStr));
-    undoUsed = true; snapStr = null; over = false; overEl.hidden = true;
+    undoLeft--; snapStr = null; over = false; overEl.hidden = true;
     if (mode === 'daily') { store.daily.score = score; save(); }
     render();
+  };
+  // shuffle: Fisher-Yates over all 64 cells, so placed pieces land on random squares
+  shufEl.onclick = () => {
+    if (!shufLeft || busy || over) return;
+    for (let i = 63; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [board[i], board[j]] = [board[j], board[i]]; }
+    shufLeft--; snapStr = null; SFX.place(); buzz(10);
+    finish();
   };
   $('#b-again').onclick = () => start(mode === 'daily' ? 'free' : mode); // daily is one try; replay is free play
 
