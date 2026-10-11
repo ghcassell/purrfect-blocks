@@ -1,5 +1,5 @@
 :root {
-    --W: min(94vw, 480px, calc(100dvh - 340px));
+    --W: min(94vw, 480px, calc(100dvh - 360px));
     --MW: min(94vw, 480px, calc(100dvh - 240px));
     --U: calc((var(--W) - 33px) / 8);
 }
