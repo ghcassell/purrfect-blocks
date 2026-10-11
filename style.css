@@ -1,5 +1,5 @@
 :root {
-    --W: min(94vw, 480px, calc(100dvh - 360px));
+    --W: min(94vw, 480px, calc(100dvh - 340px));
     --MW: min(94vw, 480px, calc(100dvh - 240px));
     --U: calc((var(--W) - 33px) / 8);
 }
@@ -170,15 +170,17 @@ h2 {
 .score {
     text-align: center;
     flex: 1;
+    white-space: nowrap;
 }
 .score small {
-    display: block;
+    display: inline;
+    margin-right: 6px;
     font-size: 0.65rem;
     opacity: 0.7;
     letter-spacing: 1px;
 }
 .score b {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .mascot-wrap {
