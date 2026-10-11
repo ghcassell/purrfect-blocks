@@ -511,3 +511,8 @@ h2 {
 #toast.show {
     animation: say 2.4s;
 }
+
+.scores {
+    display: flex;
+    width: min(94vw, 480px);
+}

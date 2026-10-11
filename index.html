@@ -27,12 +27,14 @@
 <section id="block" class="screen" hidden>
   <header class="bar">
     <button class="btn" data-go="hub">⬅</button>
-    <div class="score"><small>SCORE</small><b id="b-score">0</b></div>
-    <div class="score"><small>BEST</small><b id="b-best">0</b></div>
     <button class="btn snd"></button>
     <button class="btn" id="b-undo">↩️</button>
     <button class="btn" id="b-shuf">🔀</button>
   </header>
+  <div class="scores">
+    <div class="score"><small>SCORE</small><b id="b-score">0</b></div>
+    <div class="score"><small>BEST</small><b id="b-best">0</b></div>
+  </div>
   <div class="mascot-wrap"><div class="mascot"></div><div class="bubble"></div></div>
   <div class="bw"><div id="b-board" class="board"></div><div id="b-pop" class="poptext"></div></div>
   <div id="b-tray" class="tray"></div>
@@ -48,10 +50,12 @@
 <section id="merge" class="screen" hidden>
   <header class="bar">
     <button class="btn" data-go="hub">⬅</button>
-    <div class="score"><small>SCORE</small><b id="m-score">0</b></div>
-    <div class="score"><small>BEST</small><b id="m-best">0</b></div>
     <button class="btn snd"></button>
   </header>
+  <div class="scores">
+    <div class="score"><small>SCORE</small><b id="m-score">0</b></div>
+    <div class="score"><small>BEST</small><b id="m-best">0</b></div>
+  </div>
   <div class="mascot-wrap"><div class="mascot"></div><div class="bubble"></div></div>
   <div id="m-board" class="mboard"></div>
   <p class="hint">Swipe to slide. Matching animals merge. Reach the Lion King 👑</p>
@@ -67,9 +71,11 @@
 <section id="collection" class="screen" hidden>
   <header class="bar">
     <button class="btn" data-go="hub">⬅</button>
-    <div class="score"><small>TOTAL POINTS</small><b id="coll-total">0</b></div>
     <button class="btn snd"></button>
   </header>
+  <div class="scores">
+    <div class="score"><small>TOTAL POINTS</small><b id="coll-total">0</b></div>
+  </div>
   <p class="hint">Tap an unlocked animal to make it your mascot.</p>
   <div id="coll-grid" class="grid"></div>
   <div id="theme-row" class="themes"></div>

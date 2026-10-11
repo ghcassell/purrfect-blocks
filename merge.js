@@ -49,7 +49,7 @@ const Merge = (() => {
         if (g.length > 1) {
           const b = line[g[1]];
           b.r = r; b.c = c; b.dead = true;
-          t.lvl++; t.merged = true; moved = true; gain += 2 ** (t.lvl + 1); top = Math.max(top, t.lvl);
+          t.lvl++; t.merged = true; moved = true; gain += 10 * 2 ** (t.lvl + 1); top = Math.max(top, t.lvl);
         }
       });
     }

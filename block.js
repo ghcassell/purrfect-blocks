@@ -35,8 +35,8 @@ const Block = (() => {
     const p = tray[i]; tray[i] = null;
     p.cells.forEach(([a, b]) => board[(r + a) * N + c + b] = p.col);
     const { idx, count } = fullLines(board);
-    let gain = p.cells.length;
-    if (count) { gain += 10 * count * count * (1 + combo); combo++; } else combo = 0;
+    let gain = p.cells.length * 10;
+    if (count) { gain += 100 * count * count * (1 + combo); combo++; } else combo = 0;
     score += gain; addScore(gain);
     store.best.block = Math.max(store.best.block, score);
     if (mode === 'daily') store.daily.score = score;
