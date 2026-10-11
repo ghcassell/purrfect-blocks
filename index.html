@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>Purrfect Blocks</title>
+<meta name="theme-color" content="#ffb3dc">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="candy">
+<canvas id="fx"></canvas>
+<div id="toast"></div>
+
+<section id="hub" class="screen">
+  <h1>Purrfect<br>Blocks</h1>
+  <div class="mascot big"></div>
+  <button id="go-daily" class="btn main big-btn"><b>📅 Daily Challenge</b><small id="daily-sub"></small></button>
+  <button id="go-block" class="btn big-btn"><b>🧩 Block Puzzle</b><small>Best: <span id="best-b">0</span></small></button>
+  <button id="go-merge" class="btn big-btn"><b>🐾 Merge Animals</b><small>Best: <span id="best-m">0</span></small></button>
+  <button class="btn big-btn" data-go="collection"><b>🐱 Collection</b><small id="coll-sub"></small></button>
+  <div class="foot"><span id="streak"></span><button class="btn snd"></button><button class="btn" id="install" hidden>📲 Install</button></div>
+</section>
+
+<section id="block" class="screen" hidden>
+  <header class="bar">
+    <button class="btn" data-go="hub">⬅</button>
+    <div class="score"><small>SCORE</small><b id="b-score">0</b></div>
+    <div class="score"><small>BEST</small><b id="b-best">0</b></div>
+    <button class="btn snd"></button>
+    <button class="btn" id="b-undo">↩️</button>
+  </header>
+  <div class="mascot-wrap"><div class="mascot"></div><div class="bubble"></div></div>
+  <div class="bw"><div id="b-board" class="board"></div><div id="b-pop" class="poptext"></div></div>
+  <div id="b-tray" class="tray"></div>
+  <div id="b-over" class="over" hidden>
+    <h2>No more moves!</h2>
+    <p class="big" id="b-final">0</p>
+    <p id="b-msg"></p>
+    <button class="btn main" id="b-again">Play again</button>
+    <button class="btn" data-go="hub">Home</button>
+  </div>
+</section>
+
+<section id="merge" class="screen" hidden>
+  <header class="bar">
+    <button class="btn" data-go="hub">⬅</button>
+    <div class="score"><small>SCORE</small><b id="m-score">0</b></div>
+    <div class="score"><small>BEST</small><b id="m-best">0</b></div>
+    <button class="btn snd"></button>
+  </header>
+  <div class="mascot-wrap"><div class="mascot"></div><div class="bubble"></div></div>
+  <div id="m-board" class="mboard"></div>
+  <p class="hint">Swipe to slide. Matching animals merge. Reach the Lion King 👑</p>
+  <div id="m-over" class="over" hidden>
+    <h2>Board full!</h2>
+    <p class="big" id="m-final">0</p>
+    <p id="m-msg"></p>
+    <button class="btn main" id="m-again">Play again</button>
+    <button class="btn" data-go="hub">Home</button>
+  </div>
+</section>
+
+<section id="collection" class="screen" hidden>
+  <header class="bar">
+    <button class="btn" data-go="hub">⬅</button>
+    <div class="score"><small>TOTAL POINTS</small><b id="coll-total">0</b></div>
+    <button class="btn snd"></button>
+  </header>
+  <p class="hint">Tap an unlocked animal to make it your mascot.</p>
+  <div id="coll-grid" class="grid"></div>
+  <div id="theme-row" class="themes"></div>
+</section>
+
+<script src="logic.js"></script>
+<script src="main.js"></script>
+<script src="block.js"></script>
+<script src="merge.js"></script>
+</body>
+</html>
